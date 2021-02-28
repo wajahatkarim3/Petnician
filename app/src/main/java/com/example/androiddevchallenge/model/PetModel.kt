@@ -17,7 +17,7 @@ package com.example.androiddevchallenge.model
 
 import androidx.annotation.IdRes
 
-data class CatModel(
+data class PetModel(
     val name: String,
     val type: String,
     val location: String,

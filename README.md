@@ -1,31 +1,36 @@
-# Template repository
+# Petnician
 
-Template repository for the Jetpack Compose [#AndroidDevChallenge](https://developer.android.com/dev-challenge).
+![Workflow result](https://github.com/wajahatkarim3/Petnician/workflows/Check/badge.svg)
 
-## Getting started
-Copy this repository by pressing the "Use this template" button in Github.
-Clone your repository and open it in the latest [Android Studio (Canary build)](https://developer.android.com/studio/preview).
 
-## Submission requirements
-- Follow the challenge description on the project website: [developer.android.com/dev-challenge](https://developer.android.com/dev-challenge)
-- All UI should be written using Jetpack Compose
-- The Github Actions workflow should complete successfully
-- Include two screenshots of your submission in the [results](results) folder. The names should be
-  screenshot_1.png and screenshot_2.png.
-- Include a screen record of your submission in the [results](results) folder. The name should be
-  video.mp4
-- Replace the contents of [README.md](README.md) with the contents of [README-template.md](README-template.md) and fill out the template.
+## :scroll: Description
+A minimalist pet adoption app inspired by [designs by Pixelz Studio](https://dribbble.com/shots/7337529-Pet-Sharing-App) to demonstrate Jetpack Compose UI for submission in #AndroidDevChallenge Week 1.
 
-## Code formatting
-The CI uses [Spotless](https://github.com/diffplug/spotless) to check if your code is formatted correctly and contains the right licenses.
-Internally, Spotless uses [ktlint](https://github.com/pinterest/ktlint) to check the formatting of your code.
-To set up ktlint correctly with Android Studio, follow one of the [listed setup options](https://github.com/pinterest/ktlint#-with-intellij-idea).
 
-Before committing your code, run `./gradlew app:spotlessApply` to automatically format your code.
+## :bulb: Motivation and Context
+I managed to create a beautiful Bottom Bar menu with interesting animations with the use of `AnimatedVisibility`.
+<img src="/Art/bottommenu.gif" width="360">
+
+## :camera_flash: Screenshots
+<!-- You can add more screenshots here if you like -->
+<img src="/results/screenshot_1.png" width="260">&emsp;<img src="/results/screenshot_2.png" width="260">
+
+## 👨 Developed By
+
+<a href="https://twitter.com/WajahatKarim" target="_blank">
+  <img src="https://avatars1.githubusercontent.com/u/8867121?s=460&v=4" width="70" align="left">
+</a>
+
+**Wajahat Karim**
+
+[![Twitter](https://img.shields.io/badge/-twitter-grey?logo=twitter)](https://twitter.com/WajahatKarim)
+[![Web](https://img.shields.io/badge/-web-grey?logo=appveyor)](https://wajahatkarim.com/)
+[![Medium](https://img.shields.io/badge/-medium-grey?logo=medium)](https://medium.com/@wajahatkarim3)
+[![Linkedin](https://img.shields.io/badge/-linkedin-grey?logo=linkedin)](https://www.linkedin.com/in/wajahatkarim/)
 
 ## License
 ```
-Copyright 2020 The Android Open Source Project
+Copyright 2021 The Android Open Source Project
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.

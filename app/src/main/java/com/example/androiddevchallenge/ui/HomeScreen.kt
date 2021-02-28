@@ -65,21 +65,21 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.androiddevchallenge.model.CatModel
 import com.example.androiddevchallenge.model.PetCategoryModel
+import com.example.androiddevchallenge.model.PetModel
 import com.example.androiddevchallenge.ui.AnimatedBottomNavigation
 
 @ExperimentalFoundationApi
 @Preview
 @Composable
-fun HomeScreen() {
+fun HomeScreen(petClicked: (PetModel) -> Unit = {}) {
     Scaffold(
         topBar = {
             TopAppBar(
                 title = { },
                 backgroundColor = Color.White,
-                elevation = 0.dp,
-                modifier = Modifier.padding(all = 7.dp),
+                elevation = 8.dp,
+                modifier = Modifier.padding(all = 5.dp),
                 navigationIcon = {
                     Icon(
                         imageVector = Icons.Default.Menu,
@@ -95,7 +95,7 @@ fun HomeScreen() {
             )
         },
         content = {
-            HomeScreenContent()
+            HomeScreenContent(petClicked)
         },
         bottomBar = {
             AnimatedBottomNavigation()
@@ -105,7 +105,7 @@ fun HomeScreen() {
 
 @ExperimentalFoundationApi
 @Composable
-fun HomeScreenContent() {
+fun HomeScreenContent(petClicked: (PetModel) -> Unit = {}) {
     Column(
         modifier = Modifier.padding(start = 10.dp, end = 10.dp, top = 10.dp, bottom = 10.dp),
         horizontalAlignment = Alignment.Start
@@ -115,7 +115,7 @@ fun HomeScreenContent() {
         Spacer(modifier = Modifier.height(20.dp))
         PetCategories()
         Spacer(modifier = Modifier.height(10.dp))
-        NewPets()
+        NewPets(petClicked)
     }
 }
 
@@ -255,7 +255,7 @@ fun PetCategoryItem(petCategory: PetCategoryModel) {
 
 @ExperimentalFoundationApi
 @Composable
-fun NewPets() {
+fun NewPets(petClicked: (PetModel) -> Unit = {}) {
     Text(
         text = "Newest Pets",
         style = TextStyle(
@@ -272,7 +272,7 @@ fun NewPets() {
         items(
             items = getCats(),
             itemContent = { item ->
-                CatItem(item)
+                CatItem(item, petClicked)
             }
         )
     }
@@ -280,7 +280,7 @@ fun NewPets() {
 
 @SuppressLint("ResourceType")
 @Composable
-fun CatItem(catModel: CatModel) {
+fun CatItem(petModel: PetModel, petClicked: (PetModel) -> Unit = {}) {
     Box(
         modifier = Modifier
             .padding(5.dp)
@@ -291,22 +291,23 @@ fun CatItem(catModel: CatModel) {
                 shape = RoundedCornerShape(15.dp)
             )
             .clickable {
+                petClicked.invoke(petModel)
             }
     ) {
         Image(
-            painter = painterResource(id = catModel.image),
+            painter = painterResource(id = petModel.image),
             contentScale = ContentScale.Crop,
-            contentDescription = catModel.name,
+            contentDescription = petModel.name,
             modifier = Modifier
                 .width(200.dp)
                 .height(130.dp)
                 .clip(RoundedCornerShape(15.dp)),
         )
 
-        PetTypeTag(catModel.type)
+        PetTypeTag(petModel.type)
 
         Text(
-            text = catModel.name,
+            text = petModel.name,
             style = TextStyle(
                 color = Color.White,
                 fontWeight = FontWeight.Bold,
@@ -374,9 +375,9 @@ fun getPetCategories(): List<PetCategoryModel> {
 }
 
 @SuppressLint("ResourceType")
-fun getCats(): List<CatModel> {
+fun getCats(): List<PetModel> {
     return listOf(
-        CatModel(
+        PetModel(
             name = "Bella",
             type = "Mating",
             location = "California",
@@ -384,13 +385,13 @@ fun getCats(): List<CatModel> {
             image = R.drawable.cat1,
             liked = true,
             age = "3 months",
-            color = "Black and Gray",
+            color = "Black",
             weight = "11 kg",
             ownerName = "Nannie",
             ownerImageUrl = "",
             story = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas sodales, odio vel malesuada suscipit, velit mi aliquet nunc, ac aliquam lacus arcu ut nibh. Quisque ac accumsan lorem, vitae congue risus. Nulla felis dui, venenatis ut vestibulum et, interdum a risus. Nulla vitae ligula cursus, dapibus mi sit amet, convallis orci. Nunc in libero a eros interdum congue. Maecenas a justo leo. Sed et bibendum sapien. Suspendisse maximus augue non magna varius, vitae fermentum quam volutpat. Quisque non pellentesque ipsum. Proin tempor mi sed tristique dignissim. Nam vitae mauris ut magna sagittis vehicula. Morbi sed dignissim diam. "
         ),
-        CatModel(
+        PetModel(
             name = "Kitty",
             type = "Adoption",
             location = "New York",
@@ -404,7 +405,7 @@ fun getCats(): List<CatModel> {
             ownerImageUrl = "",
             story = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas sodales, odio vel malesuada suscipit, velit mi aliquet nunc, ac aliquam lacus arcu ut nibh. Quisque ac accumsan lorem, vitae congue risus. Nulla felis dui, venenatis ut vestibulum et, interdum a risus. Nulla vitae ligula cursus, dapibus mi sit amet, convallis orci. Nunc in libero a eros interdum congue. Maecenas a justo leo. Sed et bibendum sapien. Suspendisse maximus augue non magna varius, vitae fermentum quam volutpat. Quisque non pellentesque ipsum. Proin tempor mi sed tristique dignissim. Nam vitae mauris ut magna sagittis vehicula. Morbi sed dignissim diam. "
         ),
-        CatModel(
+        PetModel(
             name = "Lily",
             type = "Mating",
             location = "California",
@@ -418,7 +419,7 @@ fun getCats(): List<CatModel> {
             ownerImageUrl = "",
             story = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas sodales, odio vel malesuada suscipit, velit mi aliquet nunc, ac aliquam lacus arcu ut nibh. Quisque ac accumsan lorem, vitae congue risus. Nulla felis dui, venenatis ut vestibulum et, interdum a risus. Nulla vitae ligula cursus, dapibus mi sit amet, convallis orci. Nunc in libero a eros interdum congue. Maecenas a justo leo. Sed et bibendum sapien. Suspendisse maximus augue non magna varius, vitae fermentum quam volutpat. Quisque non pellentesque ipsum. Proin tempor mi sed tristique dignissim. Nam vitae mauris ut magna sagittis vehicula. Morbi sed dignissim diam. "
         ),
-        CatModel(
+        PetModel(
             name = "Charlie",
             type = "Mating",
             location = "California",
@@ -432,7 +433,7 @@ fun getCats(): List<CatModel> {
             ownerImageUrl = "",
             story = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas sodales, odio vel malesuada suscipit, velit mi aliquet nunc, ac aliquam lacus arcu ut nibh. Quisque ac accumsan lorem, vitae congue risus. Nulla felis dui, venenatis ut vestibulum et, interdum a risus. Nulla vitae ligula cursus, dapibus mi sit amet, convallis orci. Nunc in libero a eros interdum congue. Maecenas a justo leo. Sed et bibendum sapien. Suspendisse maximus augue non magna varius, vitae fermentum quam volutpat. Quisque non pellentesque ipsum. Proin tempor mi sed tristique dignissim. Nam vitae mauris ut magna sagittis vehicula. Morbi sed dignissim diam. "
         ),
-        CatModel(
+        PetModel(
             name = "Lucy",
             type = "Adoption",
             location = "California",
@@ -446,7 +447,7 @@ fun getCats(): List<CatModel> {
             ownerImageUrl = "",
             story = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas sodales, odio vel malesuada suscipit, velit mi aliquet nunc, ac aliquam lacus arcu ut nibh. Quisque ac accumsan lorem, vitae congue risus. Nulla felis dui, venenatis ut vestibulum et, interdum a risus. Nulla vitae ligula cursus, dapibus mi sit amet, convallis orci. Nunc in libero a eros interdum congue. Maecenas a justo leo. Sed et bibendum sapien. Suspendisse maximus augue non magna varius, vitae fermentum quam volutpat. Quisque non pellentesque ipsum. Proin tempor mi sed tristique dignissim. Nam vitae mauris ut magna sagittis vehicula. Morbi sed dignissim diam. "
         ),
-        CatModel(
+        PetModel(
             name = "Leo",
             type = "Mating",
             location = "California",
@@ -460,7 +461,7 @@ fun getCats(): List<CatModel> {
             ownerImageUrl = "",
             story = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas sodales, odio vel malesuada suscipit, velit mi aliquet nunc, ac aliquam lacus arcu ut nibh. Quisque ac accumsan lorem, vitae congue risus. Nulla felis dui, venenatis ut vestibulum et, interdum a risus. Nulla vitae ligula cursus, dapibus mi sit amet, convallis orci. Nunc in libero a eros interdum congue. Maecenas a justo leo. Sed et bibendum sapien. Suspendisse maximus augue non magna varius, vitae fermentum quam volutpat. Quisque non pellentesque ipsum. Proin tempor mi sed tristique dignissim. Nam vitae mauris ut magna sagittis vehicula. Morbi sed dignissim diam. "
         ),
-        CatModel(
+        PetModel(
             name = "Milo",
             type = "Adoption",
             location = "California",
@@ -468,13 +469,13 @@ fun getCats(): List<CatModel> {
             image = R.drawable.cat7,
             liked = true,
             age = "3 months",
-            color = "Dark Brown",
+            color = "Brown",
             weight = "11 kg",
             ownerName = "Nannie",
             ownerImageUrl = "",
             story = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas sodales, odio vel malesuada suscipit, velit mi aliquet nunc, ac aliquam lacus arcu ut nibh. Quisque ac accumsan lorem, vitae congue risus. Nulla felis dui, venenatis ut vestibulum et, interdum a risus. Nulla vitae ligula cursus, dapibus mi sit amet, convallis orci. Nunc in libero a eros interdum congue. Maecenas a justo leo. Sed et bibendum sapien. Suspendisse maximus augue non magna varius, vitae fermentum quam volutpat. Quisque non pellentesque ipsum. Proin tempor mi sed tristique dignissim. Nam vitae mauris ut magna sagittis vehicula. Morbi sed dignissim diam. "
         ),
-        CatModel(
+        PetModel(
             name = "Sadie",
             type = "Adoption",
             location = "California",
@@ -482,13 +483,13 @@ fun getCats(): List<CatModel> {
             image = R.drawable.cat1,
             liked = true,
             age = "3 months",
-            color = "Golden and White",
+            color = "Golden",
             weight = "11 kg",
             ownerName = "Nannie",
             ownerImageUrl = "",
             story = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas sodales, odio vel malesuada suscipit, velit mi aliquet nunc, ac aliquam lacus arcu ut nibh. Quisque ac accumsan lorem, vitae congue risus. Nulla felis dui, venenatis ut vestibulum et, interdum a risus. Nulla vitae ligula cursus, dapibus mi sit amet, convallis orci. Nunc in libero a eros interdum congue. Maecenas a justo leo. Sed et bibendum sapien. Suspendisse maximus augue non magna varius, vitae fermentum quam volutpat. Quisque non pellentesque ipsum. Proin tempor mi sed tristique dignissim. Nam vitae mauris ut magna sagittis vehicula. Morbi sed dignissim diam. "
         ),
-        CatModel(
+        PetModel(
             name = "Simba",
             type = "Mating",
             location = "California",

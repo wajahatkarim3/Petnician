@@ -15,6 +15,7 @@
  */
 package com.example.androiddevchallenge
 
+import android.annotation.SuppressLint
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -199,6 +200,7 @@ fun PetCategories() {
     }
 }
 
+@SuppressLint("ResourceType")
 @Composable
 fun PetCategoryItem(petCategory: PetCategoryModel) {
     Box(
@@ -276,6 +278,7 @@ fun NewPets() {
     }
 }
 
+@SuppressLint("ResourceType")
 @Composable
 fun CatItem(catModel: CatModel) {
     Box(
@@ -340,6 +343,7 @@ fun PetTypeTag(type: String) {
     )
 }
 
+@SuppressLint("ResourceType")
 fun getPetCategories(): List<PetCategoryModel> {
     return listOf(
         PetCategoryModel(
@@ -369,6 +373,7 @@ fun getPetCategories(): List<PetCategoryModel> {
     )
 }
 
+@SuppressLint("ResourceType")
 fun getCats(): List<CatModel> {
     return listOf(
         CatModel(

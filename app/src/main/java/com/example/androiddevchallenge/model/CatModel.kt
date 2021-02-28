@@ -16,11 +16,18 @@
 package com.example.androiddevchallenge.model
 
 import androidx.annotation.IdRes
-import androidx.compose.ui.graphics.Color
 
-data class PetCategoryModel(
-    val categoryName: String,
-    val count: Int,
-    val backgroundColor: Color,
-    @IdRes val icon: Int
+data class CatModel(
+    val name: String,
+    val type: String,
+    val location: String,
+    val imageUrl: String,
+    @IdRes val image: Int,
+    val liked: Boolean,
+    val age: String,
+    val color: String,
+    val weight: String,
+    val story: String,
+    val ownerName: String,
+    val ownerImageUrl: String
 )
